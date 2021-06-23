@@ -7,21 +7,26 @@
 // @lc code=start
 class Solution {
     func subarraySum(_ nums: [Int], _ k: Int) -> Int {
-        /// 连续、和为K、返回个数
-        var count:Int = 0
-        for start in (0..<nums.count) {
-            var sum = nums[start]
-            if sum == k {
-                count += 1
-            }
-            for end in (start + 1..<nums.count) {
-                sum += nums[end]
-                if sum == k {
-                    count += 1
-                }
-            }
+         /// 连续、和为K、返回个数
+        var numsCopy = nums
+        numsCopy.insert(0, at: 0)
+        
+        var sum = [Int](repeatElement(0, count: numsCopy.count))
+        for i in (1..<numsCopy.count) {
+            sum[i] = sum[i - 1] + numsCopy[i]
         }
-        return count
+        
+        var count:[Int:Int] = [0:1]
+        var ans = 0
+        
+        for i in (1..<numsCopy.count) {
+            if let c = count[sum[i] - k] {
+                ans += c
+            }
+            count[sum[i]] = (count[sum[i]] ?? 0) + 1
+        }
+        
+        return ans
     }
 }
 // @lc code=end
