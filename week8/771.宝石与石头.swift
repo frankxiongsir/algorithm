@@ -39,6 +39,7 @@ public struct HashSet<T: Hashable> {
 
 class Solution {
     func numJewelsInStones(_ jewels: String, _ stones: String) -> Int {
+        /// hash  o(m+n)
         var jewelDic = HashSet<Character>()
         for j in jewels {
             jewelDic.insert(j)
