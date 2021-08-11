@@ -12,16 +12,21 @@ class Solution {
         for (index, char) in s.enumerated() {
             
             if let _ = dic[char] {
-                /// 重复元素剔除，标记-1
                 dic[char] = -1
             } else {
                 dic[char] = index
             }
         }
-        let res = dic.values.sorted(by: <)
-        let res2 = res.filter{ (x) -> Bool in x >= 0}
-        return res2.count > 0 ? res2[0] : -1
+
+        /// 代码虽然看着简答一些，但是时间变慢了 75.54%
+        var res = s.count
+        for item in dic {
+            
+            if (item.value != -1 && item.value < res) {
+                res = item.value
+            }
+        }
+        return res == s.count ? -1 : res
     }
 }
 // @lc code=end
-
