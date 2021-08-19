@@ -12,6 +12,7 @@ class Solution {
         for (index, char) in s.enumerated() {
             
             if let _ = dic[char] {
+                /// 重复元素剔除，标记-1
                 dic[char] = -1
             } else {
                 dic[char] = index
